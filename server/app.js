@@ -6,7 +6,7 @@ const FUNCTIONS = require('./custom_lib/websocket_methods');
 // ================== HTTP SERVER ==================
 const HTTP_SERVER = HTTP.createServer((req, res) => {
   // For a request to ws://, the following code will NOT be executed.
-  // Instead, the request will be passed to the upgrade event emitter.
+  // Instead, the request will be passed to the upgrade event listener.
   // If there is no 'upgrade' event listener, an error will be thrown.
   res.writeHead(200);
   res.end('WebSocket server is running...');
