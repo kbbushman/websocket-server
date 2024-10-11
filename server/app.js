@@ -15,3 +15,11 @@ const HTTP_SERVER = HTTP.createServer((req, res) => {
 HTTP_SERVER.listen(CONSTANTS.PORT, () => {
   console.log(`HTTP server is listening on port ${CONSTANTS.PORT}`);
 });
+
+// Error handling
+CONSTANTS.CUSTOM_ERRORS.forEach((errorEvent) => {
+  process.on(errorEvent, (err) => {
+    console.log(`Error event: ${errorEvent}. Here's the full object:`, err);
+    process.exit(1);
+  });
+});
