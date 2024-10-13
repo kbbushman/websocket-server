@@ -39,6 +39,7 @@ HTTP_SERVER.on('upgrade', (req, socket, head) => {
   // Verify all request headers then upgrade the request
   if (
     FUNCTIONS.check(
+      socket,
       upgradeHeaderCheck,
       connectionHeaderCheck,
       methodCheck,

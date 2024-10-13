@@ -5,6 +5,7 @@ function isOriginAllowed(origin) {
 }
 
 function check(
+  socket,
   upgradeHeaderCheck,
   connectionHeaderCheck,
   methodCheck,
@@ -18,9 +19,17 @@ function check(
   ) {
     return true;
   }
-  throw new Error(
-    'Unable to connect. The HTTP headers are not in accordance with the RFC 6455 spec.'
-  );
+  const message =
+    '400 bad request: the request headers do not comply with the RFC6455 spec';
+  const messageLength = message.length;
+  const response =
+    `HTTP/1.1 400 Bad Request\r\n` +
+    `Content-Types: text/plain\r\n` +
+    `Content-Length: ${messageLength}\r\n` +
+    `\r\n` +
+    message;
+  socket.write(response);
+  socket.end(); // close the TCP connection and keep the server running
 }
 
 module.exports = {
