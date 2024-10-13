@@ -51,5 +51,13 @@ HTTP_SERVER.on('upgrade', (req, socket, head) => {
 });
 
 function upgradeConnection(req, socket, head) {
-  console.log('Upgrading the connection to a WebSocket connection...');
+  // Get the client key
+  const clientKey = req.headers['sec-websocket-key'];
+  // Generate the response headers
+  const headers = FUNCTIONS.createUpgradeHeadrs(clientKey);
+  socket.write(headers);
+  // Upgrade the connection
+  startWebSocketConnection(socket);
 }
+
+function startWebSocketConnection(socket) {}
